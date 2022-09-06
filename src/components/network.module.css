@@ -1,0 +1,57 @@
+.customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+    margin: 4% auto;
+  }
+  
+  .customers td,
+  .customers th {
+    border-top: 1px solid #ddd;
+    padding: 8px;
+  }
+  .saveButton {
+    background-color: rgb(56, 144, 191);
+    color: white;
+    border: none;
+    outline: none;
+    height: 22px;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+  .deleteButton {
+    background-color: rgb(232, 54, 9);
+    color: white;
+    border: none;
+    outline: none;
+    height: 22px;
+    border-radius: 3px;
+  }
+  
+  .adduserButton {
+    background-color: rgb(19, 149, 12);
+    color: white;
+    border: none;
+    outline: none;
+    height: 25px;
+    border-radius: 3px;
+    height: 25px;
+      border-radius: 3px;
+      /* position: absolute; */
+      margin: 2% 76%;
+      width: 120px;
+    
+  }
+  
+  /* .customers tr:nth-child(even){background-color: #f2f2f2;}
+    
+    .customers tr:hover {background-color: #ddd;}
+     */
+  .customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #a7a7a7;
+    color: white;
+  }
+  
