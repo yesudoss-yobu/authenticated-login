@@ -30,9 +30,18 @@ const Detail = styled.div`
     display: flex;
     justify-content: space-between;
     width:100%;
+    margin-left:8px;
+  }
+  .pairImage {
+    display: flex;
+    justify-content:space-between;
+    width:100%;
+    margin-left:8px;
+    margin-top:20px;
   }
   .padding{
     padding-left: 8px;
+    margin-top: -47px;
   }
   .flexPadding {
     margin-right:20%;
@@ -43,6 +52,7 @@ const Detail = styled.div`
     height: 30px;
     color: white;
     border: none;
+    cursor:pointer;
   }
   .btn:hover{
     background-color: #0000ffde;
@@ -84,17 +94,21 @@ const Detailspage = () => {
           </div>
           {filteredUserData.map((val) => (
             <div key={val.id}>
-              <h1 className="padding">Login: {val.login}</h1>
-              <div className="pair">
-                <h1 className="padding">Role: {val.role}</h1>
-                <h1 className="flexPadding">status: {val.status}</h1>
+              <div className="pairImage">
+              <h1>Login: {val.login}</h1>
+              <img style={{marginRight:'20%',width:'120px',height:'120px',borderRadius:'70px'}} src={val.profile} alt="profile" />
               </div>
-              <h1 className="padding">Data: {val.data}</h1>
+              <h1 className="padding">Role: {val.role}</h1>
+              
+              <div className="pair">
+              <h1>Data: {val.data}</h1>
+              <h1 className="flexPadding">status: {val.status}</h1>
+              </div>
             </div>
           ))}
           <div className="btndiv">
 
-          <button className="btn" onClick={editHandler}>edit</button>
+          <button className="btn" onClick={editHandler}>Edit</button>
           </div>
         </div>
         {editModal && <ModalPage editModal={editModal} idT={idT} />}

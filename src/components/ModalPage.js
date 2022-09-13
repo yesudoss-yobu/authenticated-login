@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { counterActions } from "../store/MyStore";
 import styled from "styled-components";
+import { useEffect } from "react";
+import profile from './assets/profile.jpg'
 
 const Modal = styled.div`
   .modal {
@@ -13,7 +15,7 @@ const Modal = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 400px;
+    width: 520px;
     height: auto;
     z-index: 1;
     background: #ffffff;
@@ -30,80 +32,102 @@ const Modal = styled.div`
     color: #5e5c5c;
     border: none;
     background-color: transparent;
-    font-size: 19px;
+    font-size: 22px;
     cursor: pointer;
   }
   .title {
-    font-size: 20px;
+    font-size: 24px;
     font-family: sans-serif;
     color: #3a3a3a;
     margin-top: -10px;
+  }
+  .profile{
+    margin-left: 44px;
+    height: 75px;
+    width: 75px;
+    margin-top: 29px;
+    border-radius: 60px;
+    
   }
   .loginlabel {
     display: block;
     padding-bottom: 11px;
     padding-top: 5px;
+    font-size: 20px;
+  }
+  .avatar {
+    display: block;
+    padding-bottom: 11px;
+    padding-top: 5px;
+    font-size: 20px;
   }
   .loginInput {
-    width: 98%;
-    font-size: 15px;
-    height: 22px;
+    width: 90%;
+    font-size: 18px;
+    height: 33px;
     outline: none;
   }
   .loginError {
     outline: none;
-    width: 98%;
+    width: 90%;
     font-size: 15px;
-    height: 22px;
+    height: 33px;
     border: 1px solid red;
   }
   .divFlex {
     display: flex;
-
     padding-top: 13px;
+    margin-top:20px;
+  }
+  .divFlex1{
+    display: flex;
+    padding-top: 13px;
+    margin-top: -35px;
   }
   .role {
     display: block;
     padding-bottom: 11px;
+    font-size: 20px;
   }
   .status {
     display: block;
     padding-bottom: 11px;
+    font-size: 20px;
   }
   .roleInput {
-    height: 26px;
-    font-size: 15px;
+    height: 36px;
+    font-size: 18px;
     width: 95%;
   }
   .statusInput {
-    height: 26px;
-    font-size: 15px;
+    height: 36px;
+    font-size: 18px;
     width: 100%;
   }
   .passowrd {
   }
   .passwordInput {
-    font-size: 15px;
-    height: 22px;
+    font-size: 18px;
+    height: 33px;
     width: 90%;
     outline: none;
   }
   .passwordInputError {
     font-size: 15px;
-    height: 22px;
+    height: 33px;
     width: 90%;
     border: 1px solid red;
     outline: none;
   }
   .conpasswordInput {
-    font-size: 15px;
-    height: 22px;
+    font-size: 18px;
+    height: 33px;
     width: 96%;
     outline: none;
   }
   .conpasswordInputError {
     font-size: 15px;
-    height: 22px;
+    height: 33px;
     width: 96%;
     outline: none;
     border: 1px solid red;
@@ -112,39 +136,48 @@ const Modal = styled.div`
     padding-top: 14px;
     margin-top: 10px;
     width: 98%;
-    outline:none;
+    outline: none;
+    height: 70px;
   }
-  .textareaError{
+  .textareaError {
     padding-top: 14px;
     margin-top: 10px;
     width: 98%;
-    outline:none;
-    border:1px solid red;
+    outline: none;
+    border: 1px solid red;
+    height: 70px;
   }
-  .saveBtn {
-    margin-right: 4%;
+`;
+export const Styledsavebtn = styled.button`
+margin-right: 4%;
     margin-top: 3%;
     background-color: #008000ab;
     border: none;
     color: white;
-    width: 50px;
-    height: 24px;
+    width: 70px;
+    height: 34px;
     margin-left: 11px;
-  }
-  .cancelBtn {
-    margin-top: 3%;
-    border: none;
-    color: #787878;
-    background-color: #e0e0e0;
-    width: 55px;
-    height: 24px;
-  }
-  .saveBtn:hover {
-    background-color: #008000;
-  }
-  .cancelBtn:hover {
+    &:hover {
+      background-color: #008000;
+      cursor:pointer;
+`;
+export const StyledCancelbtn = styled.button`
+  margin-top: 3%;
+  border: none;
+  color: #787878;
+  background-color: #e0e0e0;
+  width: 75px;
+  height: 34px;
+  &:hover {
     background-color: #bbb7b7;
+    cursor: pointer;
   }
+`;
+const StyledLabel = styled.label`
+  display: block;
+  padding-bottom: 0px;
+  font-size: 20px;
+  margin-top:20px;
 `;
 
 const ModalPage = ({ newModal, editModal, idT }) => {
@@ -168,6 +201,7 @@ const ModalPage = ({ newModal, editModal, idT }) => {
   const initialpassword = idT ? singleUser[0].password : "";
   const initialconpassword = idT ? singleUser[0].conpassword : "";
   const initialdata = idT ? singleUser[0].data : "";
+  const initialProfile = idT? singleUser[0].profile:profile;
 
   const [Login, setLogin] = useState(initiallogin);
   const [Role, setRole] = useState(initialrole);
@@ -175,7 +209,8 @@ const ModalPage = ({ newModal, editModal, idT }) => {
   const [Password, setPassword] = useState(initialpassword);
   const [Conpassword, setconPassword] = useState(initialconpassword);
   const [Data, setData] = useState(initialdata);
-
+const [image,setImage] = useState("")
+const [preview,setPreview] = useState(initialProfile)
   //validation states---------------
 
   const [loginError, setLoginError] = useState(false);
@@ -184,9 +219,33 @@ const ModalPage = ({ newModal, editModal, idT }) => {
   const [dataError, setDataError] = useState(false);
   const [passMismatch, setPassMismatch] = useState(false);
   const [jsonError, setJsonError] = useState(false);
-  console.log(jsonError);
+  const [imageError,setImageError] = useState(false)
 
   //validation states---------------
+
+
+
+useEffect(()=>{
+  if(image){
+    const reader= new FileReader()
+    reader.onloadend=()=>{
+setPreview(reader.result)
+    }
+    reader.readAsDataURL(image)
+  }
+  if(!idT && !image){
+    setPreview(profile)
+  }
+},[image,idT])
+
+
+  const imageHandler =(e) =>{
+    setImage(e.target.files[0])
+if(e.target.files[0] !== ""){
+  setImageError(false)
+}
+
+  }
 
   const loginHandler = (e) => {
     setLogin(e.target.value);
@@ -249,8 +308,11 @@ const ModalPage = ({ newModal, editModal, idT }) => {
     if (Data.trim() === "") {
       setDataError(true);
     }
-    if (Password !== Conpassword) {
+    if (Password !== Conpassword && Password && Conpassword) {
       setPassMismatch(true);
+    }
+    if(preview === profile){
+      setImageError(true)
     }
     if (Data) {
       console.log("running");
@@ -264,6 +326,7 @@ const ModalPage = ({ newModal, editModal, idT }) => {
 
     if (
       Login === "" ||
+      preview === profile ||
       Password === "" ||
       Conpassword === "" ||
       Data === "" ||
@@ -278,6 +341,7 @@ const ModalPage = ({ newModal, editModal, idT }) => {
       dispatch(
         counterActions.editPush({
           ind: userIndex,
+          profile:preview,
           id: initialid,
           login: Login,
           password: Password,
@@ -292,6 +356,7 @@ const ModalPage = ({ newModal, editModal, idT }) => {
     if (newModal === true) {
       dispatch(
         counterActions.addUser({
+          profile:preview,
           id: small_id,
           login: Login,
           password: Password,
@@ -326,25 +391,49 @@ const ModalPage = ({ newModal, editModal, idT }) => {
             {editModal && <h1 className="title">Edit user</h1>}
           </div>
           <hr />
-          <div>
-            <label className="loginlabel" htmlFor="login">
-              {" "}
-              Login
-            </label>
-            <input
-              className={loginError ? "loginError" : "loginInput"}
-              onChange={loginHandler}
-              value={Login}
-              type="text"
-              id="login"
-            />
-            {loginError && (
-              <p style={{ color:'red'}}>
-                Login required!
-              </p>
-            )}
+
+          <div style={{ display: "flex" }}>
+            <div style={{ width: "50%" }}>
+              <label className="loginlabel" htmlFor="login">
+                {" "}
+                Login
+              </label>
+              <input
+                className={loginError ? "loginError" : "loginInput"}
+                onChange={loginHandler}
+                value={Login}
+                type="text"
+                id="login"
+              />
+              {loginError && <p style={{ color: "red" }}>Login required!</p>}
+            </div>
+
+            <div style={{ width: "50%" }}>
+              <label className="avatar" htmlFor="avatar">
+                Choose your profile
+              </label>
+
+              <div style={{display:'flex'}}>
+
+              <div style={{width:'50%'}}>
+              <input
+              onChange={imageHandler}
+              type="file"
+              id="avatar"
+              name="avatar"
+              accept="image/png, image/jpeg"
+              />
+              {imageError && <p style={{color:'red'}}> Choose Profile!</p>}
+              </div>
+              <div style={{width:'50%'}}>
+            <img className="profile" src={preview} alt="oops" />
+              </div>
+              </div>
+            </div>
+            
           </div>
-          <div className="divFlex">
+
+          <div className="divFlex1">
             <div style={{ width: "50%" }}>
               <label className="role" htmlFor="role">
                 Role
@@ -391,16 +480,7 @@ const ModalPage = ({ newModal, editModal, idT }) => {
                 type="password"
                 id="password"
               />
-              {passwordError && (
-                <p style={{ color:'red' }}>
-                  Enter password!
-                </p>
-              )}
-              {passMismatch && (
-                <p style={{ color:'red' }}>
-                  passowrd mismatch!
-                </p>
-              )}
+              {passwordError && <p style={{ color: "red" }}>Enter password!</p>}
             </div>
             <div style={{ width: "50%" }}>
               <label className="role" htmlFor="conpassword">
@@ -418,16 +498,17 @@ const ModalPage = ({ newModal, editModal, idT }) => {
                 id="conpassword"
               />
               {conPasswordError && (
-                <p style={{ color:"red"}}>
-                  Enter password!
-                </p>
+                <p style={{ color: "red" }}>Enter password!</p>
+              )}
+              {passMismatch && (
+                <p style={{ color: "red" }}>passowrd mismatch!</p>
               )}
             </div>
           </div>
           <div style={{ paddingTop: "12px" }}>
-            <label htmlFor="data">Data</label>
+            <StyledLabel htmlFor="data">Data</StyledLabel>
             <textarea
-              className={dataError || jsonError ? 'textareaError' :'textarea'}
+              className={dataError || jsonError ? "textareaError" : "textarea"}
               onChange={dataHandler}
               value={Data}
               id="data"
@@ -437,7 +518,6 @@ const ModalPage = ({ newModal, editModal, idT }) => {
             ></textarea>
             {dataError && (
               <p style={{ color: dataError ? "red" : "none" }}>
-                {" "}
                 Enter valid data!
               </p>
             )}
@@ -449,12 +529,8 @@ const ModalPage = ({ newModal, editModal, idT }) => {
           </div>
           <hr />
           <div style={{ textAlign: "right" }}>
-            <button className="cancelBtn" onClick={closeHandler}>
-              Cancel
-            </button>
-            <button className="saveBtn" type="submit">
-              Save
-            </button>
+            <StyledCancelbtn onClick={closeHandler}>Cancel</StyledCancelbtn>
+            <Styledsavebtn type="submit">Save</Styledsavebtn>
           </div>
         </form>
       </div>

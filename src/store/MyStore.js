@@ -1,10 +1,12 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import image from '../components/assets/profile.jpg'
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     users: [
       {
+        profile:image,
         id: "700",
         login: "stalin",
         password: "1234",
@@ -14,6 +16,7 @@ const userSlice = createSlice({
         data: "no",
       },
       {
+        profile:image,
         id: "600",
         login: "doss",
         password: "4321",
@@ -61,6 +64,7 @@ state.editNetworkModal = !state.editNetworkModal;
     editPush(state, action) {
     
       state.users[action.payload.ind] = {
+        profile:action.payload.profile,
         id: action.payload.id,
         login: action.payload.login,
         role:action.payload.role,

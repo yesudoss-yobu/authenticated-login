@@ -10,7 +10,7 @@ function App() {
 
 
   return (
-    <div>
+    <div style={{overflowX: "hidden"}}>
       <Header/>
       
       <Routes>

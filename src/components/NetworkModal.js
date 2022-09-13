@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { counterActions } from "../store/MyStore";
 import { v4 as uuid } from "uuid";
 import styled from "styled-components";
-
+import { StyledCancelbtn } from "./ModalPage";
+import { Styledsavebtn } from "./ModalPage";
 const Network = styled.div`
   .modal {
     box-sizing: border-box;
@@ -12,7 +13,7 @@ const Network = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 400px;
+    width: 520px;
     height: auto;
     z-index: 1;
     background: #ffffff;
@@ -29,11 +30,11 @@ const Network = styled.div`
     color: #5e5c5c;
     border: none;
     background-color: transparent;
-    font-size: 19px;
+    font-size: 22px;
     cursor: pointer;
   }
   .title {
-    font-size: 20px;
+    font-size: 24px;
     font-family: sans-serif;
     color: #3a3a3a;
     margin-top: -10px;
@@ -42,17 +43,19 @@ const Network = styled.div`
     display: block;
     padding-bottom: 11px;
     padding-top: 5px;
+    font-size: 20px;
+
   }
   .networkInput {
     width: 98%;
-    font-size: 15px;
-    height: 22px;
+    font-size: 18px;
+    height: 33px;
     outline:none;
   }
   .networkInputError{
     width: 98%;
-    font-size: 15px;
-    height: 22px;
+    font-size: 18px;
+    height: 33px;
     outline:none;
     border:1px solid red;
   }
@@ -62,38 +65,18 @@ const Network = styled.div`
     margin-top: 10px;
     width: 98%;
     outline:none;
+    height:70px;
   }
   .textareaError{
     padding-top: 14px;
     margin-top: 10px;
     width: 98%;
     outline:none;
-    border:1px solid red
+    border:1px solid red;
+    height:70px;
   }
-  .saveBtn {
-    margin-right: 4%;
-    margin-top: 3%;
-    background-color: #008000ab;
-    border: none;
-    color: white;
-    width: 50px;
-    height: 24px;
-    margin-left: 11px;
-  }
-  .cancelBtn {
-    margin-top: 3%;
-    border: none;
-    color: #787878;
-    background-color: #e0e0e0;
-    width: 55px;
-    height: 24px;
-  }
-  .saveBtn:hover {
-    background-color: #008000;
-  }
-  .cancelBtn:hover {
-    background-color: #bbb7b7;
-  }
+  
+  
 `;
 
 const NetworkModal = () => {
@@ -233,12 +216,12 @@ if(network==="" || description===""){
           </div>
           <hr />
           <div style={{ textAlign: "right" }}>
-            <button className="cancelBtn" onClick={closeHandler}>
+            <StyledCancelbtn className="cancelBtn" onClick={closeHandler}>
               cancel
-            </button>
-            <button className="saveBtn" type="submit">
+            </StyledCancelbtn>
+            <Styledsavebtn className="saveBtn" type="submit">
               save
-            </button>
+            </Styledsavebtn>
           </div>
         </form>
       </div>
